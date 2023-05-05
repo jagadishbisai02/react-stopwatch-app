@@ -9,28 +9,28 @@ class Stopwatch extends Component {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeInterval)
+    clearInterval(this.timeInterval)
+  }
+
+  updateTime = () => {
+    this.setState(prevState => ({
+      timeElapsedInSeconds: prevState.timeElapsedInSeconds + 1,
+    }))
   }
 
   onStartTimer = () => {
-    this.timeInterval = setTimeout(this.updateTime, 1000)
+    this.timeInterval = setInterval(this.updateTime, 1000)
     this.setState({isTimerRunning: true})
   }
 
   onResetTimer = () => {
     clearInterval(this.timeInterval)
-    this.setState({isTimerRunning: false})
+    this.setState({isTimerRunning: false, timeElapsedInSeconds: 0})
   }
 
   onStopTimer = () => {
     clearInterval(this.timeInterval)
     this.setState({isTimerRunning: false})
-  }
-
-  updateTime = () => {
-    this.setState(prevState => ({
-      timeElapsedInSeconds: prevState + 1,
-    }))
   }
 
   renderSeconds = () => {
